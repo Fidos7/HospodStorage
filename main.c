@@ -49,6 +49,22 @@ void addProduct(char* n, float p, int q) {
         printf("Sklad je plny!\n");
     }
 }
+
+void searchProductByName() {
+    char productName[50];
+    printf("Zadejte název produktu: ");
+    scanf("%s", productName);
+
+    for (int i = 0; i < productCount; i++) {
+        if (strcmp(warehouse[i].name, productName) == 0) {
+            printf("Nalezeno: Index %d, Cena %.2f, Kusu %d\n", i, warehouse[i].price, warehouse[i].quantity);
+        }
+        else {
+            printf("Produkt nenalezen!\n");
+        }
+    }
+}
+
 int main() {
     return 0;
 }
