@@ -64,6 +64,69 @@ void searchProductByName() {
         }
     }
 }
+void searchProductByPrice() {
+    float min, max;
+    printf("Zadejte cenu produktu: ");
+    scanf("%f %f", &min, &max);
+
+    for (int i = 0; i < productCount; i++) {
+        if (warehouse[i].price >= min && warehouse[i].price <= max) {
+            printf("Nalezeno: Index %d, Cena %.2f, Kusu %d\n", i, warehouse[i].price);
+        }
+        else {
+            printf("Produkt nenalezen!\n");
+        }
+    }
+}
+
+void productDetails() {
+    int id;
+    listAll();
+    printf("Zadejte ID produktu: ");
+    scanf("%d", &id);
+
+    if (id >= 0 && id < productCount) {
+        printf("Nazev: %s\n", warehouse[id].name);
+        printf("Cena: %.2f\n", warehouse[id].price);
+        printf("Pocet: %d\n", warehouse[id].quantity);
+    }
+    else {
+        printf("Chybné ID!\n");
+    }
+}
+void deleteProduct() {
+    int id;
+    listAll();
+    printf("Zadejte ID produktu pro smazani: ");
+    scanf("%d", &id);
+
+    if (id >= 0 && id < productCount) {
+        for (int i = id; i < productCount - 1; i++) {
+            warehouse[i] = warehouse[i + 1];
+        }
+        productCount--;
+        printf("Smazano.\n");
+    }
+}
+
+void editProduct() {
+    int id;
+    listAll();
+    printf("Zadej index pro upravu: ");
+    scanf("%d", &id);
+
+    if (id >= 0 && id < productCount) {
+        printf("Zadej novou cenu: ");
+        scanf("%f", &warehouse[id].price);
+        printf("Zadej novou sklad: ");
+        scanf("%d", &warehouse[id].quantity);
+        printf("Upraveno.\n");
+    }
+}
+
+
+
+
 
 int main() {
     return 0;
