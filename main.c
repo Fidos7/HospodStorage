@@ -128,9 +128,10 @@ void editProduct() {
 
 
 
+
 int main() {
     addProduct("Ipad", 599.99, 322);
-    addProduct("MacBook M5", 2999.97, 67;
+    addProduct("MacBook M5", 2999.97, 67);
     addProduct("Airpods Pro 3", 300.00, 41);
 
     char choice;
@@ -138,5 +139,32 @@ int main() {
 
     while (running == 1) {
         printf("\n1. Vypis\n2. Hledat nazev\n3. Hledat cena\n4. Detail\n5. Smazat\n6. Upravit\n7. Pridat novy\n0. Konec\n");
+        printf("Volba: ");
+        scanf(" %c", &choice);
+
+        switch (choice) {
+            case '1': listAll(); break;
+            case '2': searchProductByName(); break;
+            case '3': searchProductByPrice(); break;
+            case '4': productDetails(); break;
+            case '5': deleteProduct(); break;
+            case '6': editProduct(); break;
+            case '7': {
+                char n[50]; float p; int q;
+                printf("Nazev: "); scanf("%s", n);
+                printf("Cena: "); scanf("%f", &p);
+                printf("Pocet: "); scanf("%d", &q);
+                addProduct(n, p, q);
+                break;
+            }
+            case 'x':
+            case 'X':
+                running = 0; break;
+                printf("Ukončuji program...\n");
+                break;
+            default:
+                printf("Neplatna volba!\n");
+        }
+
     }
 }
