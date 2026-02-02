@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-
 // struktury
 struct Product {
     char name[50];
@@ -9,12 +8,10 @@ struct Product {
     int quantity;
 };
 
-
 struct Product warehouse[10];
 int productCount = 0;
 
-
-// func
+// funcs
 
 void listAll() {
     printf("\n==========================================================\n");
@@ -23,14 +20,10 @@ void listAll() {
 
     for (int i = 0; i < productCount; i++) {
         printf("| %-5d | %-20s | %-10.2f | %-8d |\n",
-               i,
-               warehouse[i].name,
-               warehouse[i].price,
-               warehouse[i].quantity);
+               i, warehouse[i].name, warehouse[i].price, warehouse[i].quantity);
     }
     printf("==========================================================\n");
 
-    // celkova hgodnota skladu, bonus
     float total = 0;
     for (int i = 0; i < productCount; i++) {
         total += warehouse[i].price * warehouse[i].quantity;
@@ -52,31 +45,32 @@ void addProduct(char* n, float p, int q) {
 
 void searchProductByName() {
     char productName[50];
-    printf("Zadejte název produktu: ");
+    int found = 0;
+    printf("Zadejte nazev produktu: ");
     scanf("%s", productName);
 
     for (int i = 0; i < productCount; i++) {
         if (strcmp(warehouse[i].name, productName) == 0) {
             printf("Nalezeno: Index %d, Cena %.2f, Kusu %d\n", i, warehouse[i].price, warehouse[i].quantity);
-        }
-        else {
-            printf("Produkt nenalezen!\n");
+            found = 1;
         }
     }
+    if (!found) printf("Produkt nenalezen!\n");
 }
+
 void searchProductByPrice() {
     float min, max;
-    printf("Zadejte cenu produktu: ");
+    int found = 0;
+    printf("Zadejte rozmezi ceny (min max): ");
     scanf("%f %f", &min, &max);
 
     for (int i = 0; i < productCount; i++) {
         if (warehouse[i].price >= min && warehouse[i].price <= max) {
-            printf("Nalezeno: Index %d, Cena %.2f, Kusu %d\n", i, warehouse[i].price);
-        }
-        else {
-            printf("Produkt nenalezen!\n");
+            printf("Nalezeno: %s, Cena %.2f, Kusu %d\n", warehouse[i].name, warehouse[i].price, warehouse[i].quantity);
+            found = 1;
         }
     }
+    if (!found) printf("V teto cenove hladine nic nemame.\n");
 }
 
 void productDetails() {
@@ -89,11 +83,11 @@ void productDetails() {
         printf("Nazev: %s\n", warehouse[id].name);
         printf("Cena: %.2f\n", warehouse[id].price);
         printf("Pocet: %d\n", warehouse[id].quantity);
-    }
-    else {
-        printf("Chybné ID!\n");
+    } else {
+        printf("Chybne ID!\n");
     }
 }
+
 void deleteProduct() {
     int id;
     listAll();
@@ -106,6 +100,8 @@ void deleteProduct() {
         }
         productCount--;
         printf("Smazano.\n");
+    } else {
+        printf("Chybne ID!\n");
     }
 }
 
@@ -118,27 +114,25 @@ void editProduct() {
     if (id >= 0 && id < productCount) {
         printf("Zadej novou cenu: ");
         scanf("%f", &warehouse[id].price);
-        printf("Zadej novou sklad: ");
+        printf("Zadej novy pocet kusu: ");
         scanf("%d", &warehouse[id].quantity);
         printf("Upraveno.\n");
+    } else {
+        printf("Neplatny index!\n");
     }
 }
 
-
-
-
-
-
 int main() {
+
     addProduct("Ipad", 599.99, 322);
-    addProduct("MacBook M5", 2999.97, 67);
-    addProduct("Airpods Pro 3", 300.00, 41);
+    addProduct("MacBook", 2999.97, 67);
+    addProduct("Airpods", 300.00, 41);
 
     char choice;
     int running = 1;
 
     while (running == 1) {
-        printf("\n1. Vypis\n2. Hledat nazev\n3. Hledat cena\n4. Detail\n5. Smazat\n6. Upravit\n7. Pridat novy\n0. Konec\n");
+        printf("\n1. Vypis\n2. Hledat nazev\n3. Hledat cena\n4. Detail\n5. Smazat\n6. Upravit\n7. Pridat novy\nX. Konec\n");
         printf("Volba: ");
         scanf(" %c", &choice);
 
@@ -159,12 +153,12 @@ int main() {
             }
             case 'x':
             case 'X':
-                running = 0; break;
-                printf("Ukončuji program...\n");
+                printf("Ukoncuji program...\n");
+                running = 0;
                 break;
             default:
                 printf("Neplatna volba!\n");
         }
-
     }
+    return 0;
 }
