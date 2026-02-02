@@ -129,5 +129,14 @@ void editProduct() {
 
 
 int main() {
-    return 0;
+    addProduct("Ipad", 599.99, 322);
+    addProduct("MacBook M5", 2999.97, 67;
+    addProduct("Airpods Pro 3", 300.00, 41);
+
+    char choice;
+    int running = 1;
+
+    while (running == 1) {
+        printf("\n1. Vypis\n2. Hledat nazev\n3. Hledat cena\n4. Detail\n5. Smazat\n6. Upravit\n7. Pridat novy\n0. Konec\n");
+    }
 }
